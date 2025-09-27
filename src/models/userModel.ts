@@ -1,5 +1,5 @@
 import mongoose, {Schema, Document} from "mongoose";
-import { Message, MessageSchema } from "./message.model";
+import { Message, MessageSchema } from "./messageModel";
 
 
 
