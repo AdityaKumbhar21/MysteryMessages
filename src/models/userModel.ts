@@ -34,8 +34,7 @@ const UserSchema: Schema<User> = new Schema({
 
     password:{
         type: String,
-        required: [true, "Password is required"],
-        match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,"Enter the password with all the requirements"]
+        required: [true, "Password is required"]
     },
     verifyCode: {
         type: String,
