@@ -11,7 +11,7 @@ export async function POST(request: Request){
         const decodedUsername = decodeURIComponent(username)
         const decodedCode = decodeURIComponent(verifyCode)
 
-        const user = await UserModel.findOne({username})
+        const user = await UserModel.findOne({decodedUsername})
 
         if(!user){
             return Response.json({
@@ -43,6 +43,7 @@ export async function POST(request: Request){
                 message: "Incorrect Code"
             }, {status: 400})
         }
+
         
     } catch (error) {
         console.log("Error in verifying user: ",error);
