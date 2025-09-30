@@ -66,17 +66,8 @@ const page = () => {
       setIsSubmitting(true)
       try {
           const response = await axios.post("/api/sign-up", data)
-          if(response.data.sucess){
-            toast.message("Signup complete",{
-              description: response.data.message
-          })
-          router.replace(`/verify/${username}`)
-          }
-          else{
-            toast.error("Signup failed",{
-              description: response.data.message
-          })
-          }
+            toast.success(response.data.message)
+            router.replace(`/verify/${username}`)
       } 
       catch (error) {
           const axiosError = error as AxiosError<ApiResponse>;
@@ -117,7 +108,7 @@ const page = () => {
                   {!isCheckingUsername && usernameMessage && (
                     <p
                       className={`text-sm ${
-                        usernameMessage === 'Username is unique'
+                        usernameMessage === 'Username available'
                           ? 'text-green-500'
                           : 'text-red-500'
                       }`}
