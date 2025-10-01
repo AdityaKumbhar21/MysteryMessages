@@ -3,7 +3,7 @@ import mongoose, { mongo } from "mongoose";
 
 
 type ConnectionObject = {
-    isConnected ?: Number
+    isConnected ?: number
 }
 
 
