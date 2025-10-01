@@ -15,7 +15,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
-const page = () => {
+const Page = () => {
   const [messages, setMessages] = useState<Message[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [isSwitchLoading, setIsSwitchLoading] = useState(false)
@@ -41,7 +41,7 @@ const page = () => {
         setValue("acceptMessages", result.data.isAcceptingMessages || false)
 
       } catch (error) {
-         const axiosError = error as AxiosError<ApiResponse>;
+         console.error("Error fetching message settings:", error)
           toast.error("Error fetching message settings")
       }
       finally{
@@ -79,7 +79,7 @@ const page = () => {
 
     fetchAcceptMessage()
     getMessages()
-  }, [session])
+  }, [session, fetchAcceptMessage, getMessages])
 
 
   const handleSwitch = async() =>{
@@ -179,4 +179,4 @@ const page = () => {
   );
 }
 
-export default page
+export default Page
