@@ -21,7 +21,7 @@ const MessageCard = ({message, onMessageDelete}: MessageProps) => {
         try {
             const response = await axios.delete(`/api/delete-message/${message._id}`);
             toast.success(response.data.message)
-            onMessageDelete("") // TODO: fix this id type not recognized
+            onMessageDelete(message._id?.toString() || '')
 
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>;

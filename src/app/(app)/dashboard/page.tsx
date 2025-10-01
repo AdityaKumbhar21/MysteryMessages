@@ -47,7 +47,7 @@ const page = () => {
       finally{
         setIsSwitchLoading(false)
       }
-  },[setValue])
+  },[])
 
 
   const getMessages = useCallback(async (refresh: boolean = false)=>{
@@ -56,6 +56,7 @@ const page = () => {
 
     try {
       const response = await axios.get<ApiResponse>("/api/get-messages")
+      console.log("API Response:", response.data)
       setMessages(response.data.messages || [])
 
       if(refresh){
@@ -64,6 +65,7 @@ const page = () => {
 
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
+      console.error("Error fetching messages:", error)
       toast.error("Failed fetching messages")
     }
     finally{
@@ -87,10 +89,14 @@ const page = () => {
         acceptMessage: !acceptMessages
       })
 
+      setValue("acceptMessages", !acceptMessages)
       toast.success("Successfully updated the status")
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast.error(axiosError.response?.data?.message)
+    }
+    finally {
+      setIsSwitchLoading(false)
     }
   }
 
@@ -113,8 +119,8 @@ const page = () => {
   
 
  return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
-      <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
+    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white dark:bg-card rounded-lg shadow-lg w-full max-w-6xl">
+      <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">User Dashboard</h1>
 
       <div className="mb-4">
         <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{' '}
@@ -160,6 +166,7 @@ const page = () => {
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <MessageCard
+              key={message._id?.toString() || index}
               message={message}
               onMessageDelete={handleDeleteMessage}
             />
